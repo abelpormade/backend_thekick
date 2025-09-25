@@ -1,0 +1,30 @@
+# Dependências
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ambiente
+.env
+.env.local
+.env.*.local
+
+# Build
+dist/
+build/
+
+# Cache
+.cache/
+.next/
+out/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+node_modules/.vite/deps/_metadata.json
+src/components/Cabeçalho/index.jsx
+
+--45-tu?é*98,!-h8([})
