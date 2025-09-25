@@ -2,43 +2,14 @@ import { Op } from 'sequelize';
 import Usuario from '../models/usuarios.js';
 import { VerificaLogin } from '../services/utils/verificaLogin.js';
 import { criaTokenJwt } from '../services/utils/criaTokenJwt.js';
-import criaHashComSal from '../services/utils/criaHashSenha.js';
 import { definirCookie, obterCookie, removerCookie } from '../services/utils/Cookies.js';
 
-import usuarioService from '../services/usuarioService.js'
+import { usuarioService } from '../services/usuarioService.js';
+const usuarioService = new usuarioService();
 
 class UsuarioController extends Controller{
-  constructor(usuarioService){
-    this.usuarioService =  usuarioService;
-  }
-  static async listar(req, res) {
-    const usuarios = await usuarioService.listar();
-    res.json(usuarios);
-  }
-
-  static async listarPorId(req, res) {
-    const usuario = await usuarioService.listarPorId(req.params.id);
-    res.json(usuario);
-  }
-
-  static async criar(req, res) {
-  try {
-    const novoUsuario = await usuarioService.criar(req.body);
-    res.status(201).json(`${novoUsuario}`);
-    
-  } catch (erro) {
-    res.status(500).json({ error: erro.message });
-  }
-}
-
-  static async atualizar(req, res) {
-    await usuarioService.atualizarUsuario(req.body, req.params.id);
-    res.json({ message: 'Usuário atualizado!' });
-  }
-
-  static async deletar(req, res) {
-    await usuarioService.apagarUsuario(req.params.id);
-    res.json({ message: 'Usuário deletado!' });
+  constructor(){
+    super(usuarioService);
   }
   static async login(req, res){
     const usuario = req.body
