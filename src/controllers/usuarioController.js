@@ -5,15 +5,19 @@ import { criaTokenJwt } from '../services/utils/criaTokenJwt.js';
 import criaHashComSal from '../services/utils/criaHashSenha.js';
 import { definirCookie, obterCookie, removerCookie } from '../services/utils/Cookies.js';
 
+import usuarioService from '../services/usuarioService.js'
 
-class UsuarioController {
+class UsuarioController extends Controller{
+  constructor(usuarioService){
+    this.usuarioService =  usuarioService;
+  }
   static async listar(req, res) {
-    const usuarios = await Usuario.findAll();
+    const usuarios = await usuarioService.listar();
     res.json(usuarios);
   }
 
   static async listarPorId(req, res) {
-    const usuario = await Usuario.findByPk(req.params.id);
+    const usuario = await usuarioService.listarPorId(req.params.id);
     res.json(usuario);
   }
 
