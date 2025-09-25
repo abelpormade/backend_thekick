@@ -23,25 +23,21 @@ class UsuarioController extends Controller{
 
   static async criar(req, res) {
   try {
-    const senhaHasheada = criaHashComSal(req.body.senha_usuario);
-    req.body.senha_usuario = senhaHasheada;
-    const novoUsuario = await Usuario.create(req.body);
-    const token = criaTokenJwt(novoUsuario);
-    definirCookie("tokenJwt", token)
-
-    res.status(201).json(`${novoUsuario}, token: ${token}`);
+    const novoUsuario = await usuarioService.criar(req.body);
+    res.status(201).json(`${novoUsuario}`);
+    
   } catch (erro) {
     res.status(500).json({ error: erro.message });
   }
 }
 
   static async atualizar(req, res) {
-    await Usuario.update(req.body, { where: { id_usuario: req.params.id } });
+    await usuarioService.atualizarUsuario(req.body, req.params.id);
     res.json({ message: 'Usuário atualizado!' });
   }
 
   static async deletar(req, res) {
-    await Usuario.destroy({ where: { id_usuario: req.params.id } });
+    await usuarioService.apagarUsuario(req.params.id);
     res.json({ message: 'Usuário deletado!' });
   }
   static async login(req, res){
