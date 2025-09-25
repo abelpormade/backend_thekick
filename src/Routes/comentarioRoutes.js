@@ -1,12 +1,15 @@
-import express from 'express';
-import ComentarioController from '../controllers/comentariocontroller.js';
+import { Router } from 'express';
+import ComentarioController from '../controllers/comentarioController.js';
 
-const router = express.Router();
+const comentarioController = new ComentarioController();
 
-router.get('/', ComentarioController.listar);
-router.get('/:id', ComentarioController.listarPorId);
-router.post('/', ComentarioController.criar);
-router.put('/:id', ComentarioController.atualizar);
-router.delete('/:id', ComentarioController.deletar);
+const router = Router();
+
+router.get('/comentario', comentarioController.pegaTodos);
+router.get('/comentario/:id', comentarioController.pegaUmPorId);
+router.post('/comentario', comentarioController.criaNovo);
+router.put('/comentario/:id', comentarioController.atualiza);
+router.delete('/comentario/:id', comentarioController.exclui);
+
 
 export default router;

@@ -1,5 +1,4 @@
 import{ scryptSync, timingSafeEqual } from 'crypto'
-
 function decodificaHash(senha, senhaDB){
     const testeHash = scryptSync(senha, this.sal, 64);
     // eslint-disable-next-line no-undef

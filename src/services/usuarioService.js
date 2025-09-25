@@ -1,7 +1,7 @@
 import { Services } from "./Service.js";
 import { definirCookie } from "./utils/Cookies.js";
 import criaHashComSal from "./utils/criaHashSenha.js";
-export class usuarioService extends Services{
+class UsuarioService extends Services{
     constructor(){
         super('Usuario')
     }
@@ -26,3 +26,4 @@ export class usuarioService extends Services{
         return await super.apagaRegistro(id);
     }
 }
+export default UsuarioService;

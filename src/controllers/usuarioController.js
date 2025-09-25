@@ -4,14 +4,16 @@ import { VerificaLogin } from '../services/utils/verificaLogin.js';
 import { criaTokenJwt } from '../services/utils/criaTokenJwt.js';
 import { definirCookie, obterCookie, removerCookie } from '../services/utils/Cookies.js';
 
-import { usuarioService } from '../services/usuarioService.js';
-const usuarioService = new usuarioService();
+import Controller from './Controller.js';
+
+import UsuarioService from '../services/usuarioService.js';
+const usuarioService = new UsuarioService;
 
 class UsuarioController extends Controller{
   constructor(){
     super(usuarioService);
   }
-  static async login(req, res){
+  async login(req, res){
     const usuario = req.body
       const usuarioLogado = VerificaLogin.estaLogado(req.params.id, req.user, req.body.senha_usuario);
       if(!usuarioLogado){
@@ -25,7 +27,7 @@ class UsuarioController extends Controller{
         res.json({message:`token criado: ${token}`})
       }
   }
-  static async deslogar(req, res){
+  async deslogar(req, res){
     const usuarioLogado = VerificaLogin.estaLogado(req.params.id);
       if(usuarioLogado){
         const token = obterCookie("tokenJwt");
@@ -33,7 +35,7 @@ class UsuarioController extends Controller{
         res.json({ message: 'Usuário desconectado com sucesso' });
       }
   }
-  static async filtrarPorNome(req, res) {
+  async filtrarPorNome(req, res) {
     const { nome } = req.query; // pega o ?nome= do navegador
     try {
       const usuarios = await Usuario.findAll({
